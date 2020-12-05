@@ -1,0 +1,13 @@
+{
+  "J2ME": {
+    "lib": "freej2me",
+    "ext": ["jar"],
+    "keybinds": ["Z", null, "TAB", "ENTER", "UP", "DOWN", "LEFT", "RIGHT"],
+    "buttons": ["BUTTON", null, "SELECT", "RESET", "UP", "DOWN", "LEFT", "RIGHT"],
+    "actions": [
+      [[], ["UP"], ["DOWN"]],
+      [[], ["LEFT"], ["RIGHT"]],
+      [[], ["BUTTON"]]
+    ]
+  }
+}

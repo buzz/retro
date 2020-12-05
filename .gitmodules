@@ -1,0 +1,4 @@
+[submodule "cores/j2me"]
+	path = cores/j2me
+	url = https://github.com/hex007/freej2me.git
+	ignore = dirty
