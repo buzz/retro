@@ -107,6 +107,9 @@ function(add_core PLATFORM CORE_NAME)
     elseif(EXISTS "cores/${PLATFORM}/libretro/Makefile")
         set(MAKEFILE Makefile)
         set(SUBDIR libretro)
+    elseif(EXISTS "cores/${PLATFORM}/src/libretro/Makefile")
+        set(MAKEFILE Makefile)
+        set(SUBDIR src/libretro)
     else()
         message(FATAL_ERROR "Could not find Makefile.")
     endif()
@@ -130,7 +133,9 @@ function(add_core PLATFORM CORE_NAME)
     endif()
     add_custom_command(OUTPUT "${TARGET_PATH}"
         COMMAND ${CMAKE_COMMAND} -E env CFLAGS=${CORE_CFLAGS} CXXFLAGS=${CORE_CXXFLAGS} LDFLAGS=${CORE_LDFLAGS} $(MAKE) -f ${MAKEFILE} CC="${CMAKE_C_COMPILER}" CXX="${CMAKE_CXX_COMPILER}" fpic=${CORE_FPIC_FLAGS} ${LIBRETRO_PLATFORM}
-        COMMAND ${CMAKE_COMMAND} -E copy "${CORE_NAME}_libretro*" "${TARGET_PATH}"
+        COMMAND ${CMAKE_COMMAND} -E copy "${CORE_NAME}_libretro.so" "${TARGET_PATH}"
+        COMMAND ant -buildfile ../../build.xml
+        COMMAND cp ../../build/freej2me-lr.jar "${CMAKE_CURRENT_SOURCE_DIR}/retro/cores"
         WORKING_DIRECTORY "cores/${PLATFORM}/${SUBDIR}"
         DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/retro/cores/${CORE_NAME}-version")
     unset(CORE_LDFLAGS)
@@ -148,12 +153,12 @@ function(add_core PLATFORM CORE_NAME)
         WORKING_DIRECTORY "cores/${PLATFORM}/${SUBDIR}")
 endfunction()
 
-add_core(snes snes9x)
-add_core(genesis genesis_plus_gx)
-add_core(nes fceumm)
-add_core(atari2600 stella)
-add_core(gb gambatte)
-add_core(gba mgba)
+#add_core(snes snes9x)
+#add_core(genesis genesis_plus_gx)
+#add_core(nes fceumm)
+#add_core(atari2600 stella)
+#add_core(gb gambatte)
+#add_core(gba mgba)
 add_core(j2me freej2me)
 
 set(CLEAN_CORES)
